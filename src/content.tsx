@@ -1,6 +1,8 @@
 import JSZip from "jszip";
 
 const downloadImages = async () => {
+  const channelId =
+    window.location.pathname.split("/").filter(Boolean)[2] || "unknown";
   const imageUrls = Array.from(document.querySelectorAll("img"))
     .map((img) => img.src)
     .filter((src) => src.startsWith("https://files.slack.com/files-tmb/"));
@@ -52,7 +54,7 @@ const downloadImages = async () => {
     const url = URL.createObjectURL(content);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "slack-images.zip";
+    a.download = `slack-image-${channelId}.zip`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
