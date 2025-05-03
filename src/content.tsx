@@ -65,7 +65,9 @@ const downloadImages = async () => {
 
 chrome.runtime.onMessage.addListener((message) => {
   if (message.type === "START_DOWNLOAD") {
-    downloadImages();
+    downloadImages().then(() => {
+      chrome.runtime.sendMessage({ type: "DOWNLOAD_COMPLETE" });
+    });
   }
 });
 
